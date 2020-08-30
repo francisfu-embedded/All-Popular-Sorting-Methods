@@ -108,6 +108,15 @@ int sortArray :: findMax(void)
     return maxVal;
 }
 
+int sortArray :: getBitIndex(uint32_t bitHolder)
+{
+    int index = this->de_bruijn_lookup[(uint16_t)((bitHolder * 0x77CB531U) >> 27)];
+    return index;
+}
+
+//---------------------------------------------------------------------------------------
+//Public Methods Implementations
+//---------------------------------------------------------------------------------------
 void sortArray :: bubbleSort (void)
 {
     
@@ -239,5 +248,57 @@ void sortArray :: countSort(void)
             binArray[k]--;
         }
     }
+    delete [] binArray;
+}
+
+//the improved count sort is a more memory- & runtime- efficeint sorting method than a normal
+//count sort by applying bitwise operations and de Bruijn look-up table. Its limitation is
+//that it assumes all elements only occur one time in the input array
+void sortArray :: improvedCountSort(void)
+{
+    int i,j,k,l;
+    int flagArrLen;
+    int bitShift;
+    int flagArrIndex;
+    int maxVal = this->findMax();
+    int det  =  maxVal % 32;
+    int element;
+    
+    flagArrLen = det ? (maxVal / 32 + 1) : (maxVal / 32);
+    
+    uint32_t oneBitHolder;
+    //declare a "flag" array for bitwise operations
+    uint32_t *flagArray =  new uint32_t[flagArrLen];
+    
+
+    for (i = 0; i < flagArrLen; i++)
+    {
+        flagArray[i] = 0;
+    }
+    
+    //set the "flag" bit that corresponds to the element in the input array
+    for ( j = 0; j < len; j++)
+    {
+        bitShift = this->array[j];
+        flagArrIndex = bitShift/32;
+        bitShift %= 32;
+        flagArray[flagArrIndex] |= (1u << bitShift);
+    }
+    
+    l = 0;  //index for this->array[]
+    for (k = 0; k < flagArrLen; k++)
+    {
+        while (flagArray[k] != 0)
+        {
+            oneBitHolder = flagArray[k];
+            flagArray[k] &= (flagArray[k] - 1); // clear the first flag bit in the original 32-bit variable
+            oneBitHolder ^= flagArray[k];//use XOR to recover the cleared bit in oneBitHolder, while clearing all other bits
+            element = this->getBitIndex(oneBitHolder);
+            this->array[l] = element + k * 32;
+            l++;
+        }
+    }
+    
+    delete []flagArray;
 }
 
