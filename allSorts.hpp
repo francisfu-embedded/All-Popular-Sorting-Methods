@@ -41,9 +41,5 @@ public:
     
 };
 
-typedef struct
-{
-    
-}listNode;
 
 #endif /* allSorts_hpp */
