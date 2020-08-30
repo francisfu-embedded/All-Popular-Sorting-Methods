@@ -2,8 +2,7 @@
 //  allSorts.cpp
 //  allSorts
 //
-//  Created by Francis Fu on 2020/8/28.
-//  Copyright © 2020 apple. All rights reserved.
+//  Created by Francis Fu 
 //
 
 #include "allSorts.hpp"

@@ -2,8 +2,7 @@
 //  allSorts.hpp
 //  allSorts
 //
-//  Created by apple on 2020/8/28.
-//  Copyright © 2020 apple. All rights reserved.
+//  Created by Francis Fu
 //
 
 #ifndef allSorts_hpp
