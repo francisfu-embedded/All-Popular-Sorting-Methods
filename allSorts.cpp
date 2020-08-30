@@ -2,7 +2,7 @@
 //  allSorts.cpp
 //  allSorts
 //
-//  Created by Francis Fu 
+//  Created by Francis Fu
 //
 
 #include "allSorts.hpp"
@@ -292,7 +292,7 @@ void sortArray :: improvedCountSort(void)
             oneBitHolder = flagArray[k];
             flagArray[k] &= (flagArray[k] - 1); // clear the first flag bit in the original 32-bit variable
             oneBitHolder ^= flagArray[k];//use XOR to recover the cleared bit in oneBitHolder, while clearing all other bits
-            element = this->getBitIndex(oneBitHolder);
+            element = this->getBitIndex(oneBitHolder); //fetch the element value (namely the index of the set bit) using the De Bruijn look-up table
             this->array[l] = element + k * 32;
             l++;
         }
