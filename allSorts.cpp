@@ -24,7 +24,7 @@ sortArray :: sortArray(int array[], int len)
 void sortArray :: printArray (void)
 {
     int i;
-    for(i=0; i<len; i++)
+    for(i=0; i<this->len; i++)
     {
         cout<<this->array[i]<<"  ";
     }
@@ -94,6 +94,18 @@ int sortArray :: partition (int part_array[], int front, int end)
     
     //return the centre of the array
     return j;
+}
+
+int sortArray :: findMax(void)
+{
+    int i;
+    int maxVal = this->array[0];
+    for (i = 0; i < this->len; i++)
+    {
+        if(this->array[i] > maxVal)
+            maxVal = this->array[i];
+    }
+    return maxVal;
 }
 
 void sortArray :: bubbleSort (void)
@@ -174,7 +186,7 @@ void sortArray :: quickSort(int front, int end)
     }
 }
 
-void sortArray:: rmergeSort(int front, int end)
+void sortArray :: rmergeSort(int front, int end)
 {
     int mid = (front + end)/2;
     if(mid != front)
@@ -185,7 +197,7 @@ void sortArray:: rmergeSort(int front, int end)
     merge(front,end);
 }
 
-void sortArray:: imergeSort(int front, int end)
+void sortArray :: imergeSort(int front, int end)
 {
     int p;
     for( p = 2; p <= this->len; p*=2)
@@ -197,5 +209,35 @@ void sortArray:: imergeSort(int front, int end)
     }
 }
 
-
+void sortArray :: countSort(void)
+{
+    int i,j,k,l;
+    int binArrIndex;
+    //create an array to store number of occurences of each elements in the input array
+    int maxVal = this->findMax();
+    int *binArray =  new int[maxVal+1];
+    for (i = 0; i < (maxVal + 1); i++)
+        binArray[i] = 0;
+    
+    //store the value of occurences of each elements in their each indices
+    //e.g. element 15 occrus in this->array[] for 5 times, then the value binArray[15]
+    //will be 5
+    for ( j = 0; j < len; j++)
+    {
+        binArrIndex = this->array[j];
+        binArray[binArrIndex]++;
+    }
+    
+    l = 0;
+    //write all the elements back to this->array
+    for(k = 0; k < (maxVal+1); k++)
+    {
+        while(binArray[k] != 0)
+        {
+            this->array[l] = k;
+            l++;
+            binArray[k]--;
+        }
+    }
+}
 

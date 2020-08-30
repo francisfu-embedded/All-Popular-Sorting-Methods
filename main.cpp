@@ -14,6 +14,6 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     int array[] ={1000,200,120,2000,1,0,1300,15};
     sortArray arrayObj (array, 8);
-    arrayObj.imergeSort(0, 7);
+    arrayObj.countSort();
     arrayObj.printArray();
 }
