@@ -125,7 +125,7 @@ void sortArray :: bubbleSort (void)
     {
         //the inner loop takes array_length - 1 - outer_loop_index times
         //since each cycle of the outer loop sorts one largest elements
-        for (int j = 0 ; j< this->len-1 - i; j++)
+        for (int j = 0 ; j < this->len - 1 - i; j++)
         {
             if(this->array[j] > this->array[j+1])
             {
